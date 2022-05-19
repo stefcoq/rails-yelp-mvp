@@ -1,0 +1,24 @@
+<br>
+<h1>restaurant: <%= @restaurant.name %></h1>
+
+<ul>
+<li><em>address: </em><%= @restaurant.address %></li>
+<li><em>phone_number: </em><%= @restaurant.phone_number %></li>
+<li><em>category: </em><%= @restaurant.category %></li>
+<%= link_to "edit", edit_restaurant_path%>
+<br >
+<%= link_to "back index", restaurants_path %>
+<br>
+<h1>Reviews</h1>
+<ul>
+<%  @restaurant.reviews.each do |review| %>
+<li> <%= review[:content]%> <%= review[:rating] %> <%= link_to "delete", review_path(review),
+ method: :delete, data: { confirm: "Are you sure?" } %> </li>
+<% end %>
+</ul>
+
+<%= simple_form_for([@restaurant, Review.new]) do |f| %>
+  <%= f.input :content %>
+  <%= f.input :rating %>
+  <%= f.submit %>
+<% end %>
